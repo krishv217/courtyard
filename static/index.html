@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Courtyard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Fraunces:opsz,wght@9..144,560&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <main class="app">
+    <header class="mast">
+        <div>
+          <p class="eyebrow">Sunrise Court</p>
+          <img class="wordmark" src="/static/wordmark.png?v=2" alt="Courtyard">
+        </div>
+        <div class="mast-tools">
+          <div class="notice-wrap">
+            <button class="bell" id="bell" type="button" aria-expanded="false">Notices</button>
+            <div class="notice-panel" id="notices" hidden></div>
+          </div>
+          <label class="account">
+          Account
+          <select id="account">
+            <option value="helen">Helen Alvarez</option>
+            <option value="frank">Frank Okonkwo</option>
+            <option value="ruth">Ruth Chen</option>
+            <option value="doris">Doris Nguyen</option>
+            <option value="leo">Leo Martins</option>
+            <option value="mae">Mae Kowalski</option>
+            <option value="samir">Samir Patel</option>
+            <option value="walter">Walter Briggs</option>
+            <option value="staff">Front desk</option>
+          </select>
+          </label>
+        </div>
+    </header>
+    <div class="topbar">
+      <nav class="nav" id="resident-nav" aria-label="Pages">
+        <button class="nav-tab selected" type="button" data-page="feed">Feed</button>
+        <button class="nav-tab" type="button" data-page="events">Your events</button>
+        <button class="nav-tab" type="button" data-page="messages">Messages</button>
+        <button class="nav-tab" type="button" data-page="friends">Friends</button>
+      </nav>
+    </div>
+
+    <div id="resident-view">
+      <section id="page-feed">
+        <section class="composer" id="composer">
+          <div class="composer-row">
+            <span class="avatar" id="composer-avatar">H</span>
+            <div class="composer-main">
+              <button class="composer-prompt" id="composer-open" type="button">What would you like to do today?</button>
+              <div id="composer-body" hidden>
+                <p class="quiet">Start from a suggestion, or write your own plan, like a grocery trip or golf. Your unit stays off the feed.</p>
+                <div class="choices" id="choices"></div>
+                <div class="audience">
+                  <div>
+                    <p class="audience-title">Who can join</p>
+                    <p class="quiet" id="audience-caption">Friends only</p>
+                  </div>
+                  <button class="switch" id="audience-toggle" type="button" role="switch" aria-checked="true" aria-label="Friends only">
+                    <span class="switch-knob"></span>
+                  </button>
+                </div>
+                <label for="when">Meet at</label>
+                <select id="when">
+                  <option>10:30</option>
+                  <option selected>11:30</option>
+                  <option>12:00</option>
+                  <option>1:00</option>
+                  <option>1:30</option>
+                  <option>2:00</option>
+                  <option>3:00</option>
+                  <option>4:00</option>
+                </select>
+                <label for="note">Your note</label>
+                <textarea id="note" placeholder="A walk, or your own plan like golf or a grocery trip."></textarea>
+                <div class="actions">
+                  <button class="primary" id="share" type="button">Post</button>
+                  <button class="ghost hold" id="talk" type="button">Start talking</button>
+                  <button class="ghost" id="composer-close" type="button">Close</button>
+                </div>
+                <div class="fence" id="fence"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <p class="status" id="status"></p>
+        <div class="feed-filters" role="tablist" aria-label="Feed">
+          <button class="filter-tab selected" type="button" data-feed="all">All</button>
+          <button class="filter-tab" type="button" data-feed="friends">Friends</button>
+          <button class="filter-tab" type="button" data-feed="community">Community</button>
+        </div>
+        <div id="plans"></div>
+      </section>
+
+      <section id="page-events" hidden>
+        <h2>Your events</h2>
+        <p class="quiet">Plans you are signed up for. Cancel takes the event down if you posted it. Leave drops you from someone else's plan.</p>
+        <div id="yours"></div>
+      </section>
+
+      <section id="page-messages" hidden></section>
+
+      <section id="page-friends" hidden>
+        <div id="friend-requests"></div>
+        <h2>Friends</h2>
+        <div id="friend-list"></div>
+        <h2 class="section-title">Suggested for you</h2>
+        <div id="suggestions"></div>
+        <h2 class="section-title">People at Sunrise Court</h2>
+        <div id="directory"></div>
+      </section>
+    </div>
+
+    <div id="staff-view" hidden>
+      <p class="hello">Front desk</p>
+      <div class="keys" id="keys"></div>
+      <div class="demo-links">
+        <button class="text-button" id="story" type="button">Run judging story</button>
+        <button class="text-button" id="reset" type="button">Clear the board</button>
+      </div>
+      <div class="layout">
+        <section class="panel">
+          <h2>Check in person</h2>
+          <p class="quiet">These notes asked for help. They are not turned into a neighbor visit, and they do not include a unit number.</p>
+          <div id="alerts"></div>
+        </section>
+        <section class="panel">
+          <h2>Today's plans</h2>
+          <div id="staff-plans"></div>
+        </section>
+      </div>
+      <section class="panel withheld">
+        <h2>What was withheld</h2>
+        <p class="quiet">The front desk sees the category, not the address, the code, or the recording.</p>
+        <div class="note-list" id="notes"></div>
+      </section>
+    </div>
+  </main>
+  <script src="/static/app.js"></script>
+</body>
+</html>
